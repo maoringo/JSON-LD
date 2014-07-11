@@ -1,6 +1,6 @@
 # JSON-LD Crawler
 JSON-LD is a JSON for Linking Data.
-JSON-LD Crawler is one of the meta data crawler for cross search.
+JSON-LD Crawler is one of the metadata crawler for cross search engine.
 If you are interested in JSON-LD, please refer to these sites.
 
  * [JSON for Linking Data](http://json-ld.org/)
