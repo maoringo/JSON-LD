@@ -1,6 +1,6 @@
 # JSON-LD Crawler
 JSON-LD is a JSON for Linking Data.
-JSON-LD Crawler is a crawler for [Sagace](http://sagace.nibio.go.jp) (a web-based search engine to discover and retrieve information from biomedical databases).
+JSON-LD Crawler is one of the meta data crawler for cross search.
 If you are interested in JSON-LD, please refer to these sites.
 
  * [JSON for Linking Data](http://json-ld.org/)
