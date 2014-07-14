@@ -20,3 +20,8 @@ php urljson-ld.php sample.html
 @BiologicalDatabaseEntry_taxon_BiologicalDatabaseEntry_entryID=9606
 @MedicalCondition_code_MedicalCode_codeValue=Q87.4
 @MedicalCondition_code_MedicalCode_codingSystem=ICD-10
+```
+If you want to crawl JSON data,
+```
+php urljson-ld.php test/combi.json 
+```
