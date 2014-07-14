@@ -19,6 +19,7 @@ $html = mb_convert_encoding($html, mb_internal_encoding(), "auto" );
 preg_match_all('/type=\"application\/ld\+json\">(.*?)<\/script>/is', $html, $matches,PREG_PATTERN_ORDER);
 return $matches[1];
 }
+
 #Extract type and print for search engine index.
 function search_name($arr,$num,$nesttype="",$nestkey="")
 {
@@ -36,41 +37,38 @@ foreach ($arr as $key => $value) {
 if (is_array($value)){
 #If $key is related to nest
 $key_value = key($value);
-    if ($key == "seeAlso" or $key == "taxon" ){
-        $nesttype = $type;
-        $nestkey = $key;
-    }
-#This is only for cross search engine for life science database 
-    elseif($key == "isEntryOf"){
-        $nesttype = $type;
+#This is only for cross search engine for life science database, if array of isEntryOf == 2, treat as a part of seeAlso. 
+  if($key=="isEntryOf" and count($value) == 2){
+       $nesttype = $type;
         $nestkey = "seeAlso";
-    }
-    
+   }
 #If value is simple nest, non @type, expand brackets. 
-elseif($key_value == "0"){
+   elseif($key_value == "0"){
         foreach ($value as $key2 => $value2){
-        print "@".$type."_".$key.'='.$value2."\n";
+#Or if value is used [] blanket to indicate several properties.
+             if(is_array($value2)){
+                $nesttype = $type;
+                $nestkey=$key;
+                search_name($value2,$num,$nesttype,$nestkey);
+            }
+            else{
+                print "@".$type."_".$key.'='.$value2."\n";
+            }
         }
-        continue;
+    continue;
     }
-elseif($key_value == "@type"){
-        $nesttype = $type;
-        $nestkey=$key; 
-}
-   else{
+  else{
         $nesttype = $type;
         $nestkey=$key; 
        }
 $num = count($value);
 search_name($value,$num,$nesttype,$nestkey);
-$flag = 1;
 }
 else{
-if($num ==0 or $flag == 1){
+if($num ==0){
 print "@".$type."_".$key.'='.$value."\n";
 }
 else{
-$flag = 0;
         print "@".$nesttype."_".$nestkey.'_'.$type."_".$key.'='.$value."\n";
 }
 }
@@ -79,14 +77,22 @@ $flag = 0;
 
 
 #getPageMetadata and return as array by each script tag.
+#If the file is JSON format
+if(mb_substr($argv[1],-4) == "json"){
+$jsonld = file_get_contents($argv[1]);
+$jvalue = mb_convert_encoding($jsonld, mb_internal_encoding(), "auto" ); 
+$json =  preg_replace("/\n/","",$jvalue,1);
+$dec_arr=json_decode($json,true);
+search_name($dec_arr,0);
+}
+#Else (e.g. html)
+else{
 $jsonarray = getPageMetadata($argv[1]);
-
 foreach($jsonarray as $jkey => $jvalue){
 $json =  preg_replace("/\n/","",$jvalue,1);
 $dec_arr=json_decode($json,true);
-print_r($dec_arr);
-
 search_name($dec_arr,0);
+}
 }
 
 ?>
