@@ -40,10 +40,12 @@ $key_value = key($value);
         $nesttype = $type;
         $nestkey = $key;
     }
+#This is only for cross search engine for life science database 
     elseif($key == "isEntryOf"){
         $nesttype = $type;
         $nestkey = "seeAlso";
     }
+    
 #If value is simple nest, non @type, expand brackets. 
 elseif($key_value == "0"){
         foreach ($value as $key2 => $value2){
@@ -82,7 +84,7 @@ $jsonarray = getPageMetadata($argv[1]);
 foreach($jsonarray as $jkey => $jvalue){
 $json =  preg_replace("/\n/","",$jvalue,1);
 $dec_arr=json_decode($json,true);
-// print_r($dec_arr);
+print_r($dec_arr);
 
 search_name($dec_arr,0);
 }
