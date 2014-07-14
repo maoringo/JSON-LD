@@ -10,6 +10,8 @@ If you are interested in JSON-LD, please refer to these sites.
 ##Usage
 ```
 php urljson-ld.php sample.html 
+@BiologicalDatabaseEntry_isEntryOf_BiologicalDatabase_name=Sagace
+@BiologicalDatabaseEntry_isEntryOf_BiologicalDatabase_url=http://sagace.nibio.go.jp
 @BiologicalDatabaseEntry_seeAlso_BiologicalDatabaseEntry_entryID=154700
 @BiologicalDatabaseEntry_seeAlso_BiologicalDatabaseEntry_url=http://omim.org/entry/154700
 @BiologicalDatabaseEntry_seeAlso_BiologicalDatabase_name=OMIM
@@ -18,7 +20,3 @@ php urljson-ld.php sample.html
 @BiologicalDatabaseEntry_taxon_BiologicalDatabaseEntry_entryID=9606
 @MedicalCondition_code_MedicalCode_codeValue=Q87.4
 @MedicalCondition_code_MedicalCode_codingSystem=ICD-10
-```
-
-
-
