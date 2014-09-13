@@ -37,10 +37,10 @@ foreach ($arr as $key => $value) {
 if (is_array($value)){
 #If $key is related to nest
 $key_value = key($value);
-#This is only for cross search engine for life science database, if array of isEntryOf == 2, treat as a part of seeAlso. 
-  if($key=="isEntryOf" and count($value) == 2){
+#This is only for cross search engine for life science database, 
+#if the array property is seeAlso and it includes "isEntryOf", keep the property's name "seeAlso". 
+  if($key=="isEntryOf" and $nestkey == "seeAlso"){
        $nesttype = $type;
-        $nestkey = "seeAlso";
    }
 #If value is simple nest, non @type, expand brackets. 
    elseif($key_value == "0"){
